@@ -5,6 +5,10 @@ class UsersController < ApplicationController
     @articles = @user.articles #make it available for all instance variables
   end
 
+  def index
+    @users = User.all
+  end
+
   def new
     @user = User.new
   end
@@ -17,7 +21,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:notice] = "Your account information was updated susccesfully."
-      redirect_to articles_path
+      redirect_to @user
     else
       render 'edit'
     end
@@ -33,8 +37,6 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
-
- 
 
   private
   def user_params
